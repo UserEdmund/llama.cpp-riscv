@@ -278,7 +278,9 @@ void ggml_vec_dot_q5_0_q8_0(int n, float * GGML_RESTRICT s, size_t bs, const voi
         vint8m1_t v0h = __riscv_vreinterpret_v_u8m1_i8m1(__riscv_vsrl_vx_u8m1(v0, 4, vl));
         vint8m2_t v0c;
         if (vlenb == 16) {
-            v0c = __riscv_vcreate_v_i8m1_i8m2(v0l, v0h);
+            //v0c = __riscv_vcreate_v_i8m1_i8m2(v0l, v0h);
+            v0c = __riscv_vset_v_i8m1_i8m2(__riscv_vundefined_i8m2(),0,v0l);
+            v0c = __riscv_vset_v_i8m1_i8m2(v0c, 1, v0h);
         } else {
             v0l = __riscv_vslideup_vx_i8m1(v0l, v0h, 16, 32);
             v0c = __riscv_vlmul_ext_v_i8m1_i8m2(v0l);
@@ -352,7 +354,9 @@ void ggml_vec_dot_q5_1_q8_1(int n, float * GGML_RESTRICT s, size_t bs, const voi
         vint8m1_t v0h = __riscv_vreinterpret_v_u8m1_i8m1(__riscv_vsrl_vx_u8m1(v0, 4, vl));
         vint8m2_t v0c;
         if (vlenb == 16) {
-            v0c = __riscv_vcreate_v_i8m1_i8m2(v0l, v0h);
+            //v0c = __riscv_vcreate_v_i8m1_i8m2(v0l, v0h);
+            v0c = __riscv_vset_v_i8m1_i8m2(__riscv_vundefined_i8m2(),0,v0l);
+            v0c = __riscv_vset_v_i8m1_i8m2(v0c, 1, v0h);
         } else {
             v0l = __riscv_vslideup_vx_i8m1(v0l, v0h, 16, 32);
             v0c = __riscv_vlmul_ext_v_i8m1_i8m2(v0l);
